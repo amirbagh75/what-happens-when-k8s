@@ -64,8 +64,8 @@ kubectl run nginx --image=nginx --replicas=3
 چیزی که ممکنه واضح نباشه اینه که ما به وسیله کامند `kubectl run` میتونیم resource های مختلف کوبرنتیزی رو اجرا کنیم و محدود به Deployment ها نیستیم. 
  در صورتی که واضح و شفاف از طریق `generator--` به kubectl نگفته باشیم چی میخوایم، kubectl از طریق روش هایی resource مدنظر رو [حدس](https://github.com/kubernetes/kubernetes/blob/v1.14.0/pkg/kubectl/cmd/run/run.go#L319-L339) میزنه.
 
- برای مثال، درخواست هایی که توشون `restart-policy=Always` وجود داشته باشه، به عنوان Deployments در نظر گرفته میشوند و درخواست هایی که داخلشون `restart-policy=Never` وجود داشته باشه به عنوان Pod در نظر گرفته میشوند.
-همچنین kubectl چیزهای دیگه ای رو هم مد نظر میگیره، مثلا ذخیره کردن تاریخچه درخواست ها (برای rollouts و auditing) یا این که با دادن ‍`dry-run` از ثبت و ضبط شدن تاریخچه صرف نظر میکنه.
+ برای مثال، درخواست هایی که توشون `restart-policy=Always--` وجود داشته باشه، به عنوان Deployments در نظر گرفته میشوند و درخواست هایی که داخلشون `restart-policy=Never--` وجود داشته باشه به عنوان Pod در نظر گرفته میشوند.
+همچنین kubectl چیزهای دیگه ای رو هم مد نظر میگیره، مثلا ذخیره کردن تاریخچه درخواست ها (برای rollouts و auditing) یا این که با دادن ‍`dry-run--` از ثبت و ضبط شدن تاریخچه صرف نظر میکنه.
 
 بعد از این که kubectl متوجه شد ما میخوایم یک Deployment راه بندازیم، از `DeploymentAppsV1` generator استفاده میکنه تا بتونه یک runtime object از درخواست بسازه. runtime object یک اصطلاح کلی برای resource های کوبرنتیز میباشد.
 
