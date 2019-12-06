@@ -75,7 +75,7 @@ kubectl run nginx --image=nginx --replicas=3
 
 <div dir='auto'>
 
-
+در دست ترجمه ...
 
 </div>
 
