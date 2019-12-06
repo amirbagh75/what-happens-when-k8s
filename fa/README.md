@@ -69,6 +69,33 @@ kubectl run nginx --image=nginx --replicas=3
 
 بعد از این که kubectl متوجه شد ما میخوایم یک Deployment راه بندازیم، از `DeploymentAppsV1` generator استفاده میکنه تا بتونه یک runtime object از درخواست بسازه. runtime object یک اصطلاح کلی برای resource های کوبرنتیز میباشد.
 
+</div>
 
+### API groups and version negotiation
+
+<div dir='auto'>
+
+
+
+</div>
+
+### Client auth
+
+<div dir='auto'>
+
+یکی از مراحل مهم در ارسال درخواست به api server توسط kubectl، بحث احراز هویت یا همان auth میباشد.
+
+اطلاعات مهم و ضروری ای که برای فرایند احراز هویت نیاز است تا از سمت kubectl به api server ارسال شود در فایلی به نام `kubeconfig` ذخیره شده است. این فایل میتونه توی یک سیستم شما که از طریق kubectl نصب شده روش با api server صحبت میکنید،‌قرار گرفته باشه یا هرجای دیگه ای! kubectl برای پیدا کردنش سه تا کار میکنه:
+
+- اگر توی flag مربوطه یعنی، `kubeconfig--` آدرس فایل داده شده باشد
+- اگر این flag داده نشده بود، از طریق متغیر محیطی یا همان env ای به نام `KUBECONFIG$`
+- یا هم در نهایت داخل [دایرکتوری](https://github.com/kubernetes/client-go/blob/master/tools/clientcmd/loader.go#L52) `kube.`  به دنبال فایل مربوطه یعنی `kubeconfig` میگردد.
+
+بعد از این که kubectl فایل `kubeconfig` رو پیدا کرد، اطلاعات لازم برای اتصال به api server رو سرجمع میکنه. چیزهایی مثل این که به چه cluster ای وصل بشه و با چه context ای. همچنین اطلاعات user ای که درخواست رو داره ارسال میکنه. بعد از این ها kubectl شروع میکنه به ساختن درخواست HTTP متناسب با سازوکار Auth:
+
+- ارسال گواهینامه عمومی که با استاندارد X.509 ایجاد شده
+- توکن های bearer هم در header مربوطه یعنی  `Authorization` قرار میگیرند.
+- نام کاربری و رمزعبور ها به وسیله `HTTP basic authentication` ارسال میشن.
+- و سازوکارهایی مثل `OpenID auth` هم از قبل توسط کاربر انجام میشود تا توکن مربوطه مثل توکن های bearer ارسال شود.
 
 </div>
